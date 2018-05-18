@@ -5,7 +5,7 @@
 
 ### 环境
 - JDK 1.7 +
-- IDEA 安装插件 Lombok. [详情](https://wangwei.one/posts/917fb1e0.html)
+- IDEA 安装插件 [Lombok](https://projectlombok.org/). [详情](https://wangwei.one/posts/917fb1e0.html)
 
 ### 下载工程
 ```$shell
