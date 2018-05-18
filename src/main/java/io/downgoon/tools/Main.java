@@ -18,8 +18,11 @@ public class Main {
             System.exit(1);
         }
         String[] extensions = null;
+        String extensionStr = null;
         if (args.length == 3) {
-            extensions = StringUtils.split(args[2], ",");
+            extensionStr = StringUtils.replaceAll(args[2], "]", "");
+            extensionStr = StringUtils.replaceAll(extensionStr, "[", "");
+            extensions = StringUtils.split(extensionStr, ",");
         }
         Gbk2Utf8Util.convert(args[0], args[1], extensions);
     }

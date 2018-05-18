@@ -2,6 +2,7 @@ package io.downgoon.tools;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
@@ -28,6 +29,11 @@ public class Gbk2Utf8Util {
     public static void convert(String srcPath, String dstPath, String[] extensions) {
         if (StringUtils.isBlank(srcPath) || StringUtils.isBlank(dstPath)) {
             log.error("Usage: Gbk2Utf8 <src-gbk-path> <dst-utf8-path> [include-extension (default 'java')]");
+            System.exit(1);
+        }
+
+        if (ArrayUtils.isEmpty(extensions)) {
+            log.error("");
             System.exit(1);
         }
 

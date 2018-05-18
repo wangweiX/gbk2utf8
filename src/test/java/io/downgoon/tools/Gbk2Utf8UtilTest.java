@@ -11,9 +11,9 @@ public class Gbk2Utf8UtilTest {
 
     @Before
     public void setUp() throws Exception {
-        srcPath = "";
-        dstPath = "";
-        extensions = new String[]{""};
+        srcPath = "/Users/wangwei/Documents/001-Work/01-Asiainfo/Projects/res-web/res-web/src";
+        dstPath = "/Users/wangwei/Desktop/src";
+        extensions = new String[]{"java"};
     }
 
     @Test
