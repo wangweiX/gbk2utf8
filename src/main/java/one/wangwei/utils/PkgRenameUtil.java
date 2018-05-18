@@ -1,4 +1,4 @@
-package io.downgoon.tools;
+package one.wangwei.utils;
 
 import java.io.File;
 
@@ -19,8 +19,8 @@ public class PkgRenameUtil {
         private String alternativePackFactor;
 
         /**
-         * @param String originalPrefix e.g. com.example
-         * @param String alternativePrefix e.g. io.downgoon
+         * @param originalPrefix    originalPrefix e.g. com.example
+         * @param alternativePrefix alternativePrefix e.g. io.downgoon
          */
         public Replacement(String originalPrefix, String alternativePrefix) {
             originalPathFactor = originalPrefix.replace('.', File.separatorChar);

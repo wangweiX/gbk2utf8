@@ -1,9 +1,17 @@
-package io.downgoon.tools;
+package one.wangwei.utils;
+
+import lombok.extern.slf4j.Slf4j;
+import org.apache.tika.parser.txt.CharsetDetector;
+import org.apache.tika.parser.txt.CharsetMatch;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.charset.UnsupportedCharsetException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * <Detect encoding .> Copyright (C) <2009> <Fluck,ACC http://androidos.cc/dev>
@@ -22,7 +30,30 @@ import java.net.URL;
  * @version 1.0
  * @since Create on 2010-01-27 11:19:00
  */
+@Slf4j
 public class EncodingDetect extends Encoding {
+
+    /**
+     * 获取文件的编码格式
+     *
+     * @param file
+     * @return
+     * @throws Exception
+     */
+    public static Charset detectCharset(File file) throws Exception {
+        byte[] buffer = Files.readAllBytes(Paths.get(file.getAbsolutePath()));
+        CharsetDetector detector = new CharsetDetector();
+        detector.setText(buffer);
+        CharsetMatch match = detector.detect();
+        if (match != null) {
+            try {
+                return Charset.forName(match.getName());
+            } catch (UnsupportedCharsetException e) {
+                log.info("Charset detected as " + match.getName() + " but the JVM does not support this, detection skipped");
+            }
+        }
+        return null;
+    }
 
     // Frequency tables to hold the GB, Big5, and EUC-TW character
     // frequencies
@@ -4715,7 +4746,8 @@ class Encoding {
         javaname[GB2312] = "GB2312";
         javaname[GBK] = "GBK";
         javaname[GB18030] = "GB18030";
-        javaname[HZ] = "ASCII"; // What to put here? Sun doesn't support HZ
+        // What to put here? Sun doesn't support HZ
+        javaname[HZ] = "ASCII";
         javaname[ISO2022CN_GB] = "ISO2022CN_GB";
         javaname[BIG5] = "BIG5";
         javaname[CNS11643] = "EUC-TW";

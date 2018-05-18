@@ -1,4 +1,4 @@
-package io.downgoon.tools;
+package one.wangwei.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
@@ -119,7 +119,7 @@ public class Gbk2Utf8Util {
      * @param file 文件对象
      * @return
      */
-    private static String encodingName(File file) {
+    public static String encodingName(File file) {
         try {
             int encodingNumber = detect.detectEncoding(file);
             return EncodingDetect.javaname[encodingNumber];
