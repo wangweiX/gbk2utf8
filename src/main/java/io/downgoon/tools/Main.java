@@ -21,6 +21,6 @@ public class Main {
         if (args.length == 3) {
             extensions = StringUtils.split(args[2], ",");
         }
-        Gbk2Utf8.convert(args[0], args[1], extensions);
+        Gbk2Utf8Util.convert(args[0], args[1], extensions);
     }
 }
