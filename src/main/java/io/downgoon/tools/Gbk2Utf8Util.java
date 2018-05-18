@@ -13,7 +13,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 编码转换工具集
- * convert GBK encoding to UTF-8
  *
  * @author wangwei
  * @date 2018/05/18
