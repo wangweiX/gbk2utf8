@@ -1,6 +1,8 @@
 工程编码转化
 ===
 
+> GB系列编码转UTF-8
+
 ### 下载工程
 ```$shell
 git clone git@github.com:wangweiX/gbk2utf8.git
