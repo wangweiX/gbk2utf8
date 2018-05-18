@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -100,8 +101,6 @@ public class Gbk2Utf8Util {
         }
     }
 
-    private static EncodingDetect detect = new EncodingDetect();
-
     /**
      * 是否为GBK文件
      *
@@ -110,7 +109,9 @@ public class Gbk2Utf8Util {
      */
     private static boolean isGBK(File file) {
         String encodingName = encodingName(file);
-        return StringUtils.isNoneBlank(encodingName) && encodingName.startsWith("GB");
+        return StringUtils.isNoneBlank(encodingName)
+                && (encodingName.startsWith("GB") || encodingName.equals("ISO-8859-1"));
+        // ISO-8859-1 属于误判（依具体情况而定）
     }
 
     /**
@@ -121,8 +122,10 @@ public class Gbk2Utf8Util {
      */
     public static String encodingName(File file) {
         try {
-            int encodingNumber = detect.detectEncoding(file);
-            return EncodingDetect.javaname[encodingNumber];
+            Charset charset = EncodingDetect.detectCharset(file);
+            if (charset != null) {
+                return charset.displayName();
+            }
         } catch (Exception e) {
             log.error("Fail to get file encodingName:" + file.getAbsolutePath());
         }

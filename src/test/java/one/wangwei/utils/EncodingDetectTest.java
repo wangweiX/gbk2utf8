@@ -4,43 +4,50 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
-import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import static one.wangwei.utils.Encoding.nicename;
-
 @Slf4j
 public class EncodingDetectTest {
 
     public static void main(String argc[]) {
-        if (argc.length == 0) {
-            System.out.println("Usage: EncodingDetect <URL|File> ... [-d]");
-            System.exit(1);
-        }
-        EncodingDetect sinodetector;
-        int result = Encoding.OTHER;
-        int i;
-        sinodetector = new EncodingDetect();
-        for (i = 0; i < argc.length; i++) {
-            if (argc[i].startsWith("http://") == true) {
-                try {
-                    result = sinodetector.detectEncoding(new URL(argc[i]));
-                } catch (Exception e) {
-                    System.err.println("Bad URL " + e.toString());
-                }
-            } else if (argc[i].equals("-d")) {
-                sinodetector.debug = true;
-                continue;
-            } else {
-                result = sinodetector.detectEncoding(new File(argc[i]));
-            }
-            System.out.println(nicename[result]);
-        }
+//        if (argc.length == 0) {
+//            System.out.println("Usage: EncodingDetect <URL|File> ... [-d]");
+//            System.exit(1);
+//        }
+//        EncodingDetect sinodetector;
+//        int result = Encoding.OTHER;
+//        int i;
+//        sinodetector = new EncodingDetect();
+//        for (i = 0; i < argc.length; i++) {
+//            if (argc[i].startsWith("http://") == true) {
+//                try {
+//                    result = sinodetector.detectEncoding(new URL(argc[i]));
+//                } catch (Exception e) {
+//                    System.err.println("Bad URL " + e.toString());
+//                }
+//            } else if (argc[i].equals("-d")) {
+//                sinodetector.debug = true;
+//                continue;
+//            } else {
+//                result = sinodetector.detectEncoding(new File(argc[i]));
+//            }
+//            System.out.println(nicename[result]);
+//        }
+        detectEncoding(argc);
+
+//        File srcFile = new File("/Users/wangwei/Documents/001-Work/01-Asiainfo/Projects/res-web/res-web/config/DES.properties");
+//        File dstFile = new File("/Users/wangwei/Desktop/result/DES.properties");
+//        try {
+//            FileUtils.writeLines(dstFile, "UTF-8", FileUtils.readLines(srcFile, "BIG5"));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
 
@@ -63,21 +70,21 @@ public class EncodingDetectTest {
                 }
 
                 log.info("File path=" + file.getAbsolutePath());
-                Charset charset = EncodingDetect.detectCharset(file);
-                if (charset != null) {
-                    encodingSet.add(charset.displayName());
-                    String content = charset.displayName() + "<====>" + file.getAbsolutePath() + "\n";
-                    wirteFile(content, charset.displayName());
-                }
+//                Charset charset = EncodingDetect.detectCharset(file);
+//                if (charset != null) {
+//                    encodingSet.add(charset.displayName());
+//                    String content = charset.displayName() + "<====>" + file.getAbsolutePath() + "\n";
+//                    wirteFile(content, charset.displayName());
+//                }
 
                 // ISO-8859-8,
 
-//                String encodingName = Gbk2Utf8Util.encodingName(file);
-//                if (StringUtils.isNoneBlank(encodingName)) {
-//                    encodingSet.add(encodingName);
-//                    String content = encodingName + "<====>" + file.getAbsolutePath() + "\n";
-//                    wirteFile(content, encodingName);
-//                }
+                String encodingName = Gbk2Utf8Util.encodingName(file);
+                if (StringUtils.isNoneBlank(encodingName)) {
+                    encodingSet.add(encodingName);
+                    String content = encodingName + "<====>" + file.getAbsolutePath() + "\n";
+                    wirteFile(content, encodingName);
+                }
             }
 
             System.out.println(encodingSet);
@@ -88,7 +95,7 @@ public class EncodingDetectTest {
     }
 
     private static void wirteFile(String content, String encodingName) throws Exception {
-        String filePath = "/Users/wangwei/Desktop/result/result";
+        String filePath = "/Users/wangwei/Desktop/result/result_1";
         String fileName = filePath + "_" + encodingName + ".txt";
         File file = new File(fileName);
         if (!file.exists()) {
