@@ -3,6 +3,10 @@
 
 > GB系列编码转UTF-8
 
+### 环境
+- JDK 1.7 +
+- IDEA 安装插件 Lombok. [详情](https://wangwei.one/posts/917fb1e0.html)
+
 ### 下载工程
 ```$shell
 git clone git@github.com:wangweiX/gbk2utf8.git
